@@ -44,7 +44,7 @@ const Navbar = () => {
             </li> : ""}
 
             {/* User */}
-            {user?.role === "user" && <li>
+            {user?.role === "user" && <li className="font-bold uppercase text-">
                 <Link to={'/user-dashboard'}>{user.name}</Link>
             </li>}
 

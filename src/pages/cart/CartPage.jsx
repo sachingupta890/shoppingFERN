@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import { Timestamp, addDoc, collection } from "firebase/firestore";
 import { fireDB } from "../../firebase/FirebaseConfig";
-import BuyNowModal from "../../components/buyNowModal/BuyNowModal";
+import BuyNowModal from "../../components/buyNowModel/BuyNowModel";
 import { Navigate } from "react-router";
 
 const CartPage = () => {

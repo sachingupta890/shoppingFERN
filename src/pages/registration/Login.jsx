@@ -21,9 +21,6 @@ const Login = () => {
         password: ""
     });
 
-    /**========================================================================
-     *                          User Login Function 
-    *========================================================================**/
 
     const userLoginFunction = async () => {
         // validation 
@@ -126,8 +123,9 @@ const Login = () => {
                     </button>
                 </div>
 
-                <div>
+                <div className="flex justify-between ">
                     <h2 className='text-black'>Don't Have an account <Link className=' text-pink-500 font-bold' to={'/signup'}>Signup</Link></h2>
+                    <button onClick={()=> navigate("/") } className="text-white border bg-pink-500 rounded-lg p-2">Back </button>
                 </div>
 
             </div>

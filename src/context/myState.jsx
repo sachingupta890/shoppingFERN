@@ -12,10 +12,7 @@ function MyState({ children }) {
     // User State
     const [getAllProduct, setGetAllProduct] = useState([]);
 
-    /**========================================================================
-     *                          GET All Product Function
-     *========================================================================**/
-
+//Get All products ---------------
     const getAllProductFunction = async () => {
         setLoading(true);
         try {
@@ -38,15 +35,9 @@ function MyState({ children }) {
         }
     }
 
-
-    // Order State 
     const [getAllOrder, setGetAllOrder] = useState([]);
 
-
-    /**========================================================================
-     *                           GET All Order Function
-     *========================================================================**/
-
+//Get All Orders --------
     const getAllOrderFunction = async () => {
         setLoading(true);
         try {
@@ -88,10 +79,6 @@ function MyState({ children }) {
     // user State 
     const [getAllUser, setGetAllUser] = useState([]);
 
-
-    /**========================================================================
-     *                           GET All User Function
-     *========================================================================**/
 
     const getAllUserFunction = async () => {
         setLoading(true);

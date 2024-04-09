@@ -4,10 +4,13 @@ import ProductDetail from '../../components/admin/ProductDetail';
 import OrderDetail from '../../components/admin/OrderDetail';
 import UserDetail from '../../components/admin/UserDetail';
 import { useContext } from 'react';
+import { FaBasketShopping } from "react-icons/fa6";
 import myContext from '../../context/myContext';
+import { useNavigate, } from 'react-router-dom';
 
 const AdminDashboard = () => {
     const user = JSON.parse(localStorage.getItem('users'));
+    const navigation = useNavigate();
     const context = useContext(myContext);
     const {getAllProduct, getAllOrder, getAllUser} = context;
     return (
@@ -15,6 +18,12 @@ const AdminDashboard = () => {
             {/* Top */}
             <div className="top mb-5 px-5 mt-5">
                 <div className=" bg-pink-50 py-5 border border-pink-100 rounded-lg">
+                <div className='flex ml-2'>
+                    <FaBasketShopping size={30} className='m-2' />
+                    <div className='mt-3 text-2xl' onClick={() => navigation("/")}> Mantra</div>
+                </div>
+                 
+
                     <h1 className=" text-center text-2xl font-bold text-pink-500">Admin Dashboard</h1>
                 </div>
             </div>
