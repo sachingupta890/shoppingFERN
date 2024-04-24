@@ -32,7 +32,7 @@ function MyState({ children }) {
         } catch (error) {
             console.log(error);
             setLoading(false);
-        }
+        }   
     }
 
     const [getAllOrder, setGetAllOrder] = useState([]);

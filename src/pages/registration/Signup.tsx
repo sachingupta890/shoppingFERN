@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useContext, useState } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import myContext from "../../context/myContext";
 import { Timestamp, addDoc, collection } from "firebase/firestore";
@@ -8,26 +9,32 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import toast from "react-hot-toast";
 import Loader from "../../components/loader/Loader";
 
-const Signup = () => {
+interface UserSignup {
+    name: string;
+    email: string;
+    password: string;
+    role: string;
+}
+
+const Signup: React.FC = () => {
     const context = useContext(myContext);
-    const {loading, setLoading } = context;
+    const { loading, setLoading } = context;
 
     // navigate 
     const navigate = useNavigate();
 
     // User Signup State 
-    const [userSignup, setUserSignup] = useState({
+    const [userSignup, setUserSignup] = useState<UserSignup>({
         name: "",
         email: "",
         password: "",
         role: "user"
-    }); 
-
+    });
 
     const userSignupFunction = async () => {
         // validation 
         if (userSignup.name === "" || userSignup.email === "" || userSignup.password === "") {
-            toast.error("All Fields are required")
+            toast.error("All Fields are required");
         }
 
         if (userSignup.password.length <= 6 || !/[A-Z]/.test(userSignup.password) || !/[!@#$%^&*(),.?":{}|<>]/.test(userSignup.password)) {
@@ -54,37 +61,37 @@ const Signup = () => {
                         year: "numeric",
                     }
                 )
-            }
+            };
 
             // create user Refrence
-            const userRefrence = collection(fireDB, "user");
+            const userReference = collection(fireDB, "user");
 
             // Add User Detail
-           const result =  await addDoc(userRefrence, user);
-           if(!result){
-            navigate("*");
-           }
-
+            const result = await addDoc(userReference, user);
+            if (!result) {
+                navigate("*");
+            }
 
             setUserSignup({
                 name: "",
                 email: "",
-                password: ""
-            })
+                password: "",
+                role: "user"
+            });
 
             toast.success("Signup Successfully");
 
             setLoading(false);
-            navigate('/login')
+            navigate('/login');
         } catch (error) {
             console.log(error);
             setLoading(false);
         }
+    };
 
-    }
     return (
         <div className='flex justify-center items-center h-screen'>
-            {loading && <Loader/>}
+            {loading && <Loader />}
             {/* Login Form  */}
             <div className="login_Form bg-pink-50 px-8 py-6 border border-pink-100 rounded-xl shadow-md">
 
@@ -105,7 +112,7 @@ const Signup = () => {
                             setUserSignup({
                                 ...userSignup,
                                 name: e.target.value
-                            })
+                            });
                         }}
                         className='bg-pink-50 border border-pink-200 px-2 py-2 w-96 rounded-md outline-none placeholder-pink-200'
                     />
@@ -121,7 +128,7 @@ const Signup = () => {
                             setUserSignup({
                                 ...userSignup,
                                 email: e.target.value
-                            })
+                            });
                         }}
                         className='bg-pink-50 border border-pink-200 px-2 py-2 w-96 rounded-md outline-none placeholder-pink-200'
                     />
@@ -137,7 +144,7 @@ const Signup = () => {
                             setUserSignup({
                                 ...userSignup,
                                 password: e.target.value
-                            })
+                            });
                         }}
                         className='bg-pink-50 border border-pink-200 px-2 py-2 w-96 rounded-md outline-none placeholder-pink-200'
                     />
@@ -156,7 +163,7 @@ const Signup = () => {
 
                 <div className="flex justify-between ">
                     <h2 className='text-black'>Have an account <Link className=' text-pink-500 font-bold' to={'/login'}>Login</Link></h2>
-                    <button onClick={()=> navigate("/") } className="text-white border bg-pink-500 rounded-lg p-2">Back </button>
+                    <button onClick={() => navigate("/")} className="text-white border bg-pink-500 rounded-lg p-2">Back </button>
                 </div>
 
             </div>

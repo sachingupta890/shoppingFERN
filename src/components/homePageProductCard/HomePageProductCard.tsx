@@ -5,6 +5,9 @@ import Loader from "../loader/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, deleteFromCart } from "../../redux/cartSlice";
 import toast from "react-hot-toast";
+import React from "react";
+import { CartItem } from "../../types/Types";
+import { RootState } from "../../types/Types";
 
 
 const HomePageProductCard = () => {
@@ -13,21 +16,21 @@ const HomePageProductCard = () => {
     const context = useContext(myContext);
     const { loading, getAllProduct } = context;
 
-    const cartItems = useSelector((state) => state.cart);
+    const cartItems = useSelector((state:RootState) => state.cart);
 
     // console.log(cartItems);
 
     const dispatch = useDispatch();
 
     // add to cart function
-    const addCart = (item) => {
+    const addCart = (item:CartItem) => {
         dispatch(addToCart(item));
         toast.success("Added to cart")
     }
 
 
     // delete from cart function
-    const deleteCart = (item) => {
+    const deleteCart = (item:CartItem) => {
         dispatch(deleteFromCart(item));
         toast.success("Delete cart")
     }

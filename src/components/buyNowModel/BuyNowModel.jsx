@@ -6,6 +6,8 @@ import {
 } from "@material-tailwind/react";
 import { useState } from "react";
 
+
+
 const BuyNowModal = ({ addressInfo, setAddressInfo, buyNowFunction }) => {
     const [open, setOpen] = useState(false);
 
@@ -13,6 +15,7 @@ const BuyNowModal = ({ addressInfo, setAddressInfo, buyNowFunction }) => {
     return (
         <>
             <Button
+                 
                 type="button"
                 onClick={handleOpen}
                 className="w-full px-4 py-3 text-center text-gray-100 bg-pink-600 border border-transparent dark:border-gray-700 hover:border-pink-500 hover:text-pink-700 hover:bg-pink-100 rounded-xl"

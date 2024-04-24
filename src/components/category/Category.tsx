@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router";
+import React from "react";
 
 // category 
 const category = [
@@ -36,7 +37,7 @@ const category = [
     }
 ]
 
-const Category = () => {
+const Category:React.FC = () => {
     // naviaget 
     const navigate = useNavigate();
     return (

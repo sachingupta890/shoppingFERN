@@ -8,21 +8,25 @@ import { Timestamp, addDoc, collection } from "firebase/firestore";
 import { fireDB } from "../../firebase/FirebaseConfig";
 import BuyNowModal from "../../components/buyNowModel/BuyNowModel";
 import { Navigate } from "react-router";
-
+import React from "react";
+import { RootState } from "../../types/Types";
+import { AddressInfo } from "../../types/Types";
+import { CartItem } from "../../types/Types";
+import { Product } from "../../types/Types";
 const CartPage = () => {
-    const cartItems = useSelector((state) => state.cart);
+    const cartItems = useSelector((state:RootState) => state.cart);
     const dispatch = useDispatch();
 
-    const deleteCart = (item) => {
+    const deleteCart = (item:any) => {
         dispatch(deleteFromCart(item));
         toast.success("Delete cart")
     }
 
-    const handleIncrement = (id) => {
+    const handleIncrement = (id:any) => {
         dispatch(incrementQuantity(id));
     };
 
-    const handleDecrement = (id) => {
+    const handleDecrement = (id:any) => {
         dispatch(decrementQuantity(id));
     };
 
@@ -38,15 +42,15 @@ const CartPage = () => {
     }, [cartItems])
 
     // user
-    const user = JSON.parse(localStorage.getItem('users'))
+    const user:any = JSON.parse(localStorage.getItem('users' ) || '{}');
 
     // Buy Now Function
-    const [addressInfo, setAddressInfo] = useState({
+    const [addressInfo, setAddressInfo] = useState<AddressInfo>({
         name: "",
         address: "",
         pincode: "",
         mobileNumber: "",
-        time: Timestamp.now(),
+        time:new Date(),
         date: new Date().toLocaleString(
             "en-US",
             {

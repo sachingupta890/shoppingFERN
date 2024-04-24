@@ -1,4 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
+import React from "react";
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import myContext from "../../context/myContext";
@@ -8,7 +9,12 @@ import { auth, fireDB } from "../../firebase/FirebaseConfig";
 import Loader from "../../components/loader/Loader";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 
-const Login = () => {
+interface UserLogin {
+    email:string;
+    password:string;
+}
+
+const Login:React.FC = () => {
     const context = useContext(myContext);
     const { loading, setLoading } = context;
 
@@ -16,7 +22,7 @@ const Login = () => {
     const navigate = useNavigate();
 
     // User Signup State 
-    const [userLogin, setUserLogin] = useState({
+    const [userLogin, setUserLogin] = useState<UserLogin >({
         email: "",
         password: ""
     });
