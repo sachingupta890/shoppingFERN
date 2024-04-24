@@ -64,11 +64,15 @@ const Navbar: React.FC = (): ReactElement => {
 
             {/* Cart */}
             <li>
-                <Link to={'/cart'}>
-                   {
-                    user?(`Cart(${cartItems.length})`):("Cart")
-                   }
-                </Link>
+                {
+                    
+                    <Link to={'/cart'}>
+                    {
+                     user?(`Cart(${cartItems.length})`):("Cart")
+                    }
+                 </Link>
+                }
+                
             </li>
         </ul>
     );

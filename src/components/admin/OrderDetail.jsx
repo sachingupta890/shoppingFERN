@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import myContext from "../../context/myContext";
 
+
 const OrderDetail = () => {
     const context = useContext(myContext);
     const { getAllOrder, orderDelete } = context;
@@ -101,10 +102,11 @@ const OrderDetail = () => {
                             </tr>
                             {getAllOrder.map((order) => {
                                 console.log(order)
+                                const orderId  = order.id
                                 return (
                                     <>
                                         {order.cartItems.map((item, index) => {
-                                            const { id, productImageUrl, title, category, price, quantity } = item
+                                            const {  productImageUrl, title, category, price, quantity } = item
                                             return (
                                                 <tr key={index} className="text-pink-300">
                                                     <td className="h-12 px-6 text-md transition duration-300 border-t border-l first:border-l-0 border-pink-100 stroke-slate-500 text-slate-500 ">
@@ -112,7 +114,7 @@ const OrderDetail = () => {
                                                     </td>
 
                                                     <td className="h-12 px-6 text-md transition duration-300 border-t border-l first:border-l-0 border-pink-100 stroke-slate-500 text-slate-500 ">
-                                                        {id}
+                                                        {orderId}
                                                     </td>
 
                                                     <td className="h-12 px-6 text-md transition duration-300 border-t border-l first:border-l-0 border-pink-100 stroke-slate-500 text-slate-500 first-letter:uppercase ">

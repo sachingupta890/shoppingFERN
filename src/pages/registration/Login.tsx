@@ -8,11 +8,8 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth, fireDB } from "../../firebase/FirebaseConfig";
 import Loader from "../../components/loader/Loader";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
+import { UserLogin } from "../../types/Types";
 
-interface UserLogin {
-    email:string;
-    password:string;
-}
 
 const Login:React.FC = () => {
     const context = useContext(myContext);

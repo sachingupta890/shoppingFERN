@@ -8,13 +8,7 @@ import { auth, fireDB } from "../../firebase/FirebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import toast from "react-hot-toast";
 import Loader from "../../components/loader/Loader";
-
-interface UserSignup {
-    name: string;
-    email: string;
-    password: string;
-    role: string;
-}
+import { UserSignup } from "../../types/Types";
 
 const Signup: React.FC = () => {
     const context = useContext(myContext);

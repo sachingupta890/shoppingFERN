@@ -1,3 +1,4 @@
+
 export interface Product{
     id:string;
     category: string;
@@ -19,7 +20,7 @@ export interface CartItem{
         category: string;
         date: string;
         description: string;
-        time: string; // Assuming time is a string in the format specified in your example
+        time: string; // Assuming time is a string in the format 
     }
 export interface RootState {
     cart: CartItem[];
@@ -34,6 +35,18 @@ export interface AddressInfo {
     pincode: string;
     time?: Date
 }
+
+export interface UserSignup{
+    name: string;
+    email: string;
+    password: string;
+    role: string;
+}
+export interface UserLogin {
+    email:string;
+    password:string;
+}
+
 
 
 

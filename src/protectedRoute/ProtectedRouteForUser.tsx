@@ -10,4 +10,4 @@ export const ProtectedRouteForUser = ({children}) => {
     else {
       return <Navigate to={'/login'}/>
     }
-}
+} 

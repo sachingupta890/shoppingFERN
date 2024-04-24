@@ -2,10 +2,11 @@ import { useContext } from "react";
 import Layout from "../../components/layout/Layout";
 import myContext from "../../context/myContext";
 import Loader from "../../components/loader/Loader";
+import React from "react";
 
 const UserDashboard = () => {
     // user
-    const user = JSON.parse(localStorage.getItem('users'));
+    const user:any = JSON.parse(localStorage.getItem('users') || '{}');
 
     const context = useContext(myContext);
     const { loading, getAllOrder } = context
@@ -66,9 +67,19 @@ const UserDashboard = () => {
                         {/* main 2 */}
                         {getAllOrder.filter((obj) => obj.userid === user?.uid).map((order, index) => {
                             // console.log(order);
+                                const orderId = order.id;
+                                var count = index+1;
                             return (
-                                <div key={index}>
-                                    {order.cartItems.map((item, index) => {
+                                <>
+                                {
+                                        <h2 className="mt-10 text-xl font-bold text-gray-800 border-b-2 border-gray-800 pb-2 mb-4">Order {count}</h2>
+                                    }
+                                <div key={index} className="flex bg  flex-col overflow-hidden rounded-xl border border-blue-400  md:flex-rowflex flex-col border p-8 m-8">
+                                    
+                                    {
+                                    
+                                    order.cartItems.map((item, index) => {
+                                
                                         // console.log('item', item);
                                         const { id, date, quantity, price, title, productImageUrl, category } = item
                                         // console.log('order', order)
@@ -82,7 +93,7 @@ const UserDashboard = () => {
                                                         <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-1">
                                                             <div className="mb-4">
                                                                 <div className="text-sm font-semibold text-black">Order Id</div>
-                                                                <div className="text-sm font-medium text-gray-900">#{id}</div>
+                                                                <div className="text-sm font-medium text-gray-900">#{orderId}</div>
                                                             </div>
 
                                                             <div className="mb-4">
@@ -143,10 +154,14 @@ const UserDashboard = () => {
                                         )
                                     })}
                                 </div>
+                              
+                                </>
                             )
+                          
                         })}
 
                     </div>
+                    
                 </div>
             </div>
         </Layout>

@@ -11,78 +11,62 @@ import { Navigate } from "react-router";
 import React from "react";
 import { RootState } from "../../types/Types";
 import { AddressInfo } from "../../types/Types";
-import { CartItem } from "../../types/Types";
-import { Product } from "../../types/Types";
+import { v4 as uuidv4 } from 'uuid';
+
 const CartPage = () => {
-    const cartItems = useSelector((state:RootState) => state.cart);
+    const cartItems = useSelector((state: RootState) => state.cart);
     const dispatch = useDispatch();
 
-    const deleteCart = (item:any) => {
+    const deleteCart = (item: any) => {
         dispatch(deleteFromCart(item));
-        toast.success("Delete cart")
+        toast.success("Delete cart");
     }
 
-    const handleIncrement = (id:any) => {
+    const handleIncrement = (id: any) => {
         dispatch(incrementQuantity(id));
     };
 
-    const handleDecrement = (id:any) => {
+    const handleDecrement = (id: any) => {
         dispatch(decrementQuantity(id));
     };
 
-    // const cartQuantity = cartItems.length;
+    const cartItemTotal = cartItems.reduce((prevValue, currItem) => prevValue + currItem.quantity, 0);
 
-    const cartItemTotal = cartItems.map(item => item.quantity).reduce((prevValue, currValue) => prevValue + currValue, 0);
-
-    const cartTotal = cartItems.map(item => item.price * item.quantity).reduce((prevValue, currValue) => prevValue + currValue, 0);
+    const cartTotal = cartItems.reduce((prevValue, currItem) => prevValue + (currItem.price * currItem.quantity), 0);
 
 
     useEffect(() => {
         localStorage.setItem('cart', JSON.stringify(cartItems));
-    }, [cartItems])
+    }, [cartItems]);
 
-    // user
-    const user:any = JSON.parse(localStorage.getItem('users' ) || '{}');
+    const user: any = JSON.parse(localStorage.getItem('users') || '{}');
 
-    // Buy Now Function
     const [addressInfo, setAddressInfo] = useState<AddressInfo>({
         name: "",
         address: "",
         pincode: "",
         mobileNumber: "",
-        time:new Date(),
-        date: new Date().toLocaleString(
-            "en-US",
-            {
-                month: "short",
-                day: "2-digit",
-                year: "numeric",
-            }
-        )
+        time: new Date(),
+        date: new Date().toLocaleString("en-IN", { month: "short", day: "2-digit", year: "numeric" })
     });
 
     const buyNowFunction = () => {
-        // validation 
         if (addressInfo.name === "" || addressInfo.address === "" || addressInfo.pincode === "" || addressInfo.mobileNumber === "") {
             return toast.error("All Fields are required")
         }
 
-        // Order Info 
+        const orderId = uuidv4();
+        const orderIdStamp = Timestamp.now();
         const orderInfo = {
+            orderId: orderId,
+            orderIdStamp: orderIdStamp,
             cartItems,
             addressInfo,
             email: user.email,
             userid: user.uid,
             status: "confirmed",
             time: Timestamp.now(),
-            date: new Date().toLocaleString(
-                "en-US",
-                {
-                    month: "short",
-                    day: "2-digit",
-                    year: "numeric",
-                }
-            )
+            date: new Date().toLocaleString("en-US", { month: "short", day: "2-digit", year: "numeric" })
         }
         try {
             const orderRef = collection(fireDB, 'order');
@@ -93,12 +77,12 @@ const CartPage = () => {
                 pincode: "",
                 mobileNumber: "",
             })
-            toast.success("Order Placed Successfull")
+            toast.success("Order Placed Successfully")
         } catch (error) {
             console.log(error)
         }
-
     }
+
     return (
         <Layout>
             <div className="container mx-auto px-4 max-w-7xl lg:px-0">
@@ -113,7 +97,6 @@ const CartPage = () => {
                             </h2>
                             <ul role="list" className="divide-y divide-gray-200">
                                 {cartItems.length > 0 ?
-
                                     <>
                                         {cartItems.map((item, index) => {
                                             const { id, title, price, productImageUrl, quantity, category } = item
@@ -176,21 +159,13 @@ const CartPage = () => {
                                         })}
                                     </>
                                     :
-
-                                    <h1>Not Found</h1>}
+                                    <h1>Not Found</h1>
+                                }
                             </ul>
                         </section>
                         {/* Order summary */}
-                        <section
-                            aria-labelledby="summary-heading"
-                            className="mt-16 rounded-md bg-white lg:col-span-4 lg:mt-0 lg:p-0"
-                        >
-                            <h2
-                                id="summary-heading"
-                                className=" border-b border-gray-200 px-4 py-3 text-lg font-medium text-gray-900 sm:p-4"
-                            >
-                                Price Details
-                            </h2>
+                        <section aria-labelledby="summary-heading" className="mt-16 rounded-md bg-white lg:col-span-4 lg:mt-0 lg:p-0">
+                            <h2 id="summary-heading" className=" border-b border-gray-200 px-4 py-3 text-lg font-medium text-gray-900 sm:p-4">Price Details</h2>
                             <div>
                                 <dl className=" space-y-1 px-2 py-4">
                                     <div className="flex items-center justify-between">
@@ -210,13 +185,7 @@ const CartPage = () => {
                                 </dl>
                                 <div className="px-2 pb-4 font-medium text-green-700">
                                     <div className="flex gap-4 mb-6">
-                                        {user
-                                            ? <BuyNowModal
-                                                addressInfo={addressInfo}
-                                                setAddressInfo={setAddressInfo}
-                                                buyNowFunction={buyNowFunction}
-                                            /> : <Navigate to={'/login'}/>
-                                        }
+                                        {user ? <BuyNowModal addressInfo={addressInfo} setAddressInfo={setAddressInfo} buyNowFunction={buyNowFunction} /> : <Navigate to={'/login'} />}
                                     </div>
                                 </div>
                             </div>
@@ -229,5 +198,3 @@ const CartPage = () => {
 }
 
 export default CartPage;
-
-

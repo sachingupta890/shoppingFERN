@@ -7,9 +7,10 @@ import { useContext } from 'react';
 import { FaBasketShopping } from "react-icons/fa6";
 import myContext from '../../context/myContext';
 import { useNavigate, } from 'react-router-dom';
+import React from 'react';
 
 const AdminDashboard = () => {
-    const user = JSON.parse(localStorage.getItem('users'));
+    const user:any = JSON.parse(localStorage.getItem('users')||'{}');
     const navigation = useNavigate();
     const context = useContext(myContext);
     const {getAllProduct, getAllOrder, getAllUser} = context;
