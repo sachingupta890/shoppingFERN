@@ -10,9 +10,7 @@ const UserDashboard = () => {
 
     const context = useContext(myContext);
     const { loading, getAllOrder } = context
-    // console.log(getAllOrder)
 
-    // console.log(user)
     return (
         <Layout>
             <div className=" container mx-auto px-4 py-5 lg:py-8">
@@ -66,7 +64,7 @@ const UserDashboard = () => {
 
                         {/* main 2 */}
                         {getAllOrder.filter((obj) => obj.userid === user?.uid).map((order, index) => {
-                            // console.log(order);
+                            
                                 const orderId = order.id;
                                 var count = index+1;
                             return (
@@ -80,9 +78,9 @@ const UserDashboard = () => {
                                     
                                     order.cartItems.map((item, index) => {
                                 
-                                        // console.log('item', item);
+                                        
                                         const { id, date, quantity, price, title, productImageUrl, category } = item
-                                        // console.log('order', order)
+                                
                                         const { status } = order
                                         return (
                                             <div key={index} className="mt-5 flex flex-col overflow-hidden rounded-xl border border-pink-100 md:flex-row">
